@@ -1985,6 +1985,19 @@ try{var id=localStorage.getItem(SESK);S=id&&Datos.leer().jugadores[id]||null}cat
 mostrar();ruta();requestAnimationFrame(cuadro);
 try{var rp=new URLSearchParams(location.search).get("ref");if(rp&&!S){$("rRef").value=rp.toUpperCase().slice(0,12);modo("reg")}}catch(e){}
 })();
+<!-- Supabase para guardar ganancias -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabaseUrl = 'https://kljzohylrhgirsttyrjc.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtsanpvaHlscmhnaXJzdHR5cmpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4OTc5NjksImV4cCI6MjEwODQ3Mzk2OX0.l-3bJAR-ORmIO_eKod-vYQnFf3ZdMfFmfg3nK3RJ42U';
+  const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+  // Esta función guarda la ganancia
+  async function guardarGanancia(nombreJugador, ganancia) {
+    const { data, error } = await supabaseClient
+      .from('Jugadores')
+      .insert([{ Nom: nombreJugador, Gana: ganancia }]);
+    if(error) console.log("Error guardando:", error);
+    else console.log("¡Guardado!", data);
+  }
 </script>
-</body>
-</html>
